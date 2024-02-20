@@ -1,19 +1,15 @@
 <?php
+require('validater.php');
 
 $heading = 'Create Note';
 $config = require('config.php');
 $db = new Database($config);
 
-$errors = [];
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $errors = [];
 
-    if (strlen($_POST['body']) === 0) {
-        $errors['body'] = 'Body is required';
-    }
-
-    if (strlen($_POST['body']) > 100) {
-        $errors['body'] = 'Body must be less than 100 characters';
+    if (Validator::string($_POST['body'], 1, 100)) {
+        $errors['body'] = 'Body less than 100 characters is required';
     }
 
     if (empty($errors)) {
