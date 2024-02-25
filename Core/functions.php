@@ -15,6 +15,13 @@ function dd($value)
     die();
 }
 
+function abort($status = Response::NOT_FOUND)
+{
+    http_response_code($status);
+    require base_path("views/$status.view.php");
+    die();
+}
+
 function authorize($condition, $status = Response::FORBIDDEN)
 {
     if (!$condition) {
