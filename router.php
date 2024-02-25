@@ -5,7 +5,7 @@ $routes = require('route.php');
 function routeToController($uri, $routes)
 {
     if (array_key_exists($uri, $routes)) {
-        require('controllers/' . $routes[$uri] . '.php');
+        require($routes[$uri]);
     } else {
         abort();
     };

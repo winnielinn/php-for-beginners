@@ -1,6 +1,6 @@
-<?php require('partials/header.php'); ?>
-<?php require('partials/nav.php'); ?>
-<?php require('partials/banner.php'); ?>
+<?php require('views/partials/header.php'); ?>
+<?php require('views/partials/nav.php'); ?>
+<?php require('views/partials/banner.php'); ?>
 
 <main>
   <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
@@ -12,9 +12,9 @@
       </li>
     <?php endforeach; ?>
     <p class="mt-6">
-      <a href="/note/create" class="text-blue-500 hover:underline">Create Note</a>
+      <a href="/notes/create" class="text-blue-500 hover:underline">Create Note</a>
     </p>
   </div>
 </main>
 
-<?php require('partials/footer.php'); ?>
+<?php require('views/partials/footer.php'); ?>
