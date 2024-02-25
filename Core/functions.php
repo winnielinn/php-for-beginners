@@ -20,6 +20,8 @@ function authorize($condition, $status = Response::FORBIDDEN)
     if (!$condition) {
         abort($status);
     }
+
+    return true;
 }
 
 function base_path($path)
