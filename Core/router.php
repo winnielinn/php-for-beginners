@@ -8,7 +8,7 @@ class Router
 
     public function add($uri, $controller, $method)
     {
-        $this->rotues = [
+        $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
             'method' => strtoupper($method),
