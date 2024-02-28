@@ -13,15 +13,20 @@ if (!Validator::string($_POST['body'], 1, 100)) {
 }
 
 if (!empty($errors)) {
+    $note = $db->query('SELECT * FROM notes WHERE id = :id', [
+        'id' => $_GET['id']
+    ])->findOrFail();
+
     view('notes/create.view.php', [
-        'heading' => 'Create Note',
-        'errors' => $errors
+        'heading' => 'Edit Note',
+        'errors' => $errors,
+        'note' => $note
     ]);
 }
 
-$db->query('INSERT INTO notes (body, user_id) VALUES (:body, :user_id)', [
+$db->query('UPDATE notes SET body = :body WHERE id = :id', [
     'body' => $_POST['body'],
-    'user_id' => 4
+    'id' => $_POST['id']
 ]);
 
 header('location: /notes');
