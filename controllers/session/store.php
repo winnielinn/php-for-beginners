@@ -15,8 +15,8 @@ if (!Validator::email($email)) {
     $errors['email'] = 'Please provider a valid email address.';
 }
 
-if (!Validator::string($password, 7, 255)) {
-    $errors['password'] = 'Please provide a password of at least 7 characters.';
+if (!Validator::string($password)) {
+    $errors['password'] = 'Please provide a valid password.';
 }
 
 if (!empty($errors)) {
@@ -29,18 +29,17 @@ $user = $db->query('SELECT * FROM users WHERE email = :email', [
     'email' => $email
 ])->find();
 
-
 if ($user) {
-    header('location: /');
-    exit();
+    if (password_verify($password, $user['password'])) {
+        login($email);
+
+        header('location: /');
+        exit();
+    }
 }
 
-$db->query('INSERT INTO users (email, password) VALUES (:email, :password)', [
-    'email' => $email,
-    'password' => password_hash($password, PASSWORD_BCRYPT),
+return view('register/create.view.php', [
+    'errors' => [
+        'email' => 'No matching account found for that email address and password.'
+    ]
 ]);
-
-login($email);
-
-header('location: /');
-exit();
