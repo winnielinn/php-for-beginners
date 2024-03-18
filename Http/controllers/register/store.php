@@ -2,6 +2,7 @@
 
 use Core\App;
 use Core\Database;
+use Core\Authenticator;
 use Core\Validator;
 
 $db = App::resolve(Database::class);
@@ -15,8 +16,8 @@ if (!Validator::email($email)) {
     $errors['email'] = 'Please provider a valid email address.';
 }
 
-if (!Validator::string($password)) {
-    $errors['password'] = 'Please provide a valid password.';
+if (!Validator::string($password, 7, 255)) {
+    $errors['password'] = 'Please provide a password of at least 7 characters.';
 }
 
 if (!empty($errors)) {
@@ -29,17 +30,17 @@ $user = $db->query('SELECT * FROM users WHERE email = :email', [
     'email' => $email
 ])->find();
 
-if ($user) {
-    if (password_verify($password, $user['password'])) {
-        login($email);
 
-        header('location: /');
-        exit();
-    }
+if ($user) {
+    header('location: /');
+    exit();
 }
 
-return view('register/create.view.php', [
-    'errors' => [
-        'email' => 'No matching account found for that email address and password.'
-    ]
+$db->query('INSERT INTO users (email, password) VALUES (:email, :password)', [
+    'email' => $email,
+    'password' => password_hash($password, PASSWORD_BCRYPT),
 ]);
+
+(new Authenticator)->login($email);
+
+redirect('/');
