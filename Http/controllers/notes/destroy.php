@@ -23,5 +23,4 @@ $db->query(
     ]
 );
 
-header('location: /notes');
-exit();
+redirect('/notes');
