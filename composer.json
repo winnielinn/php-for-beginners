@@ -1,0 +1,16 @@
+{
+    "name": "winnielin/php-for-beginners",
+    "authors": [
+        {
+            "name": "winnielinn",
+            "email": "yaysa903@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    }
+}
