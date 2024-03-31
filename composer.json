@@ -1,0 +1,26 @@
+{
+    "name": "winnielin/php-for-beginners",
+    "authors": [
+        {
+            "name": "winnielinn",
+            "email": "yaysa903@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/collections": "^11.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.34"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
